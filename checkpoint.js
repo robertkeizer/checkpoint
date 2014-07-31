@@ -21,4 +21,6 @@ var Checkpointer = function( checkpointConfiguration ){
 	};
 };
 
-module.exports = Checkpoint;
+module.exports = function( args ){
+	return new Checkpointer( args );
+};
