@@ -1,13 +1,26 @@
-var util		= require( "util" );
-var checkpointer	= require( "./checkpoint" )( { "foo": "bar" } );
+var promise	= require( "promise" );
+var async	= require( "async" );
 
-console.log( util.inspect( checkpointer ) );
+var checkpointer = function( checkpointArgs ){
+	
+	var checkpoint = function( scope ){
+		var promise = new Promise( function( resolve, reject ){
+			console.log( "Would look through scope.." );
+			return resolve( null );
+		} );
+		return promise;
+	};
+};
+
+var myCheckpointer = new checkpointer( { "foo": "bar" } );
+
+console.log( JSON.stringify( checkpointer ) );
 
 var testFunc = function( argA, argB, cb ){
 	
 	var t = argA + argB;
 
-	checkpointer.checkpoint( this ).then( function( ){
+	myCheckpointer.checkpoint( this ).then( function( ){
 		cb( t % argA );
 	} );
 };
